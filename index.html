@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="id">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Monster_Site</title>
+
+		<!-- FONTS -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Nova+Script&	family=Smooch+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+		<!-- CASCADING STYLE SHEETS -->
+		<style type="text/css">
+			@keyframes slide-auto {
+				0% {
+					left: 0%;
+				}
+				30% {
+					left: 0%;
+				}
+				33% {
+					left: -100%;
+				}
+				63% {
+					left: -100%;
+				}
+				66% {
+					left: -200%;
+				}
+				98% {
+					left: -200%;
+				}
+				100% {
+					left: 0%;
+				}
+			}
+			@keyframes slide-auto-faded {
+				0% {
+					left: 0%;
+				}
+				30% {
+					left: 0%;
+					opacity: 1;
+				}
+				30.4% {
+					opacity: 0;
+				}
+				32% {
+					opacity: 0;
+				}
+				33% {
+					left: -100%;
+					opacity: 1;
+				}
+				63% {
+					left: -100%;
+					opacity: 1;
+				}
+				63.4% {
+					opacity: 0;
+				}
+				65% {
+					opacity: 0;
+				}
+				66% {
+					left: -200%;
+					opacity: 1;
+				}
+				98% {
+					left: -200%;
+					opacity: 1;
+				}
+				98.4% {
+					opacity: 0;
+				}
+				99.5% {
+					opacity: 0;
+				}
+				100% {
+					left: 0%;
+					opacity: 1;
+				}
+			}
+
+			/*DEF*/
+			::-webkit-scrollbar {
+				width: 7px;
+			}
+			::-webkit-scrollbar-track {
+				background-color: rgba(0, 0, 0, 0.0);
+				width: 0px;
+			}
+			::-webkit-scrollbar-thumb {
+				background-color: rgba(0, 0, 0, 0.1);
+			}
+			::-webkit-scrollbar-thumb:hover {
+				background-color: rgba(0, 0, 0, 0.3);
+			}
+
+			* {
+				font-size: 16px;
+				list-style: none;
+				text-decoration: none;
+				margin: 0px;
+				padding: 0px;
+				font-family: 'Smooch Sans', sans-serif;
+				font-size: 20px;
+			}
+
+			body {
+				overflow: overlay;
+			}
+
+			.grid {
+				display: grid;
+				grid-template-columns: 50px 1fr;
+				grid-template-rows: 50px auto auto;
+				grid-template-areas:
+				"head head"
+				"panel content"
+				"panel foot";
+				transition: 0.5s;
+			}
+			.grid-panel-extended {
+				grid-template-columns: 200px 1fr;
+			}
+
+			/*HEADER*/
+			#header {
+				background-image: linear-gradient(-45deg, rgb(95, 158, 160), rgb(50,0,160));
+				color: white;
+				grid-area: head;
+				height: 50px;
+				width: 100%;
+				position: fixed;
+				display: flex;
+				flex-wrap: nowrap;
+				z-index: 100;
+				transition: 0.15s ease-out;
+			}
+
+			#header .button {
+				width: 60px;
+				transition: 0.3s;
+			}
+
+			#header .button:hover {
+				background-color: rgba(0, 0, 0, 0.2);
+			}
+
+			.button span {
+				width: 20px;
+				height: 2px;
+				background-color: white;
+				display: block;
+				margin-top: 4px;
+				position: relative;
+				top: 13px;
+				left: 17px;
+				margin-bottom: 4px;
+				transition: 0.3s ease-out;
+			}
+			.button .one {color: transparent;}
+			.button .two {color: transparent;}
+			.button .three {color: transparent;}
+
+			.button .one-active {
+				transform: rotate(45deg) translateY(8.6px);
+				left: 23px;
+			}
+			.button .two-active {
+				left: -55px;
+				opacity: 0;
+			}
+			.button .three-active {
+				transform: rotate(-45deg) translateY(-8.6px);
+				left: 23px;
+			}
+
+			#header h1 {
+				font-family: 'Kaushan Script', cursive;
+				position: relative;
+				justify-content: center;
+				align-content: center;
+				flex-basis: 100%;
+				top: 5px;
+				font-size: 24px;
+				text-align: center;
+			}
+
+			.option {
+				height: auto;
+				position: fixed;
+				top: -300px;
+				width: 100%;
+				background-image: linear-gradient(40deg, rgba(18, 4, 56, 0.99), rgba(43, 73, 74, 0.97));
+				color: white;
+				transition: 1s;
+				z-index: 99;
+				overflow: scroll;
+				user-select: none;
+			}
+			.option-active {
+				top: 0px;
+			}
+
+			.option .spacing {
+				border: none;
+				height: 60px;
+			}
+
+			.option a {
+				color: white;
+			}
+
+			.option ul li {
+				padding: 10px;
+				font-weight: bold;
+				letter-spacing: 2px;
+				transition: 0.2s;
+				border: 1px solid transparent;
+			}
+			.option ul li:hover {
+				background-color: rgba(2555, 255, 255, 0.05);
+				border-top: 1px solid rgb(95, 158, 180);
+				border-bottom: 1px solid rgb(95, 158, 180);
+			}
+
+			/*CONTENT*/
+
+			/*-----[panel]-----*/
+			.panel {
+				grid-area: panel;
+				display: block;
+				background-color: rgb(85, 55, 85);
+				transition: 0.5s;
+				position: fixed;
+				justify-content: center;
+				justify-items: center;
+				height: 100%;
+				width: 50px;
+				z-index: 98;
+				user-select: none;
+				overflow: hidden;
+			}
+			.panel-expanded {
+				background-color: rgb(85, 85, 85);
+				width: 200px;
+				border-right: 4px solid rgb(191, 53, 255);
+			}
+
+			.expander {
+				height: 30px;
+				position: relative;
+				display: flex;
+				right: 0px;
+				align-items: center;
+				top: 50px;
+				cursor: pointer;
+				transition: 0.3s;
+				z-index: 98;
+			}
+			.expander-active {
+				background-color: rgb(51, 40, 51);
+			}
+			.expander:hover {
+				background-color: rgba(0, 255, 221, 0.11);
+			}
+
+			.expand-word {
+				color: white;
+				position: relative;
+				left: -160px;
+				font-size: 20px;
+				transition: 0.5s;
+				font-weight: bold;
+				width: 160px;
+			}
+			.expand-word-expanded {
+				left: 5px;
+			}
+
+			.svg {
+				width: 50px;
+				position: relative;
+				top: 3px;
+				right: 32px;
+				transition: 0.6s;
+			}
+			.svg-pressed {
+				right: -10px;
+			}
+
+			.expand-logo {
+				color: white;
+				position: relative;
+				width: 20px;
+				height: 20px;
+				transition: 0.3s;
+			}
+			.expand-logo-pressed {
+				transform: rotate(180deg);
+			}
+
+			.panel-content {
+				display: flex;
+				position: relative;
+				overflow: hidden;
+				top: -30px;
+				height: 100%;
+				align-items: flex-end;
+			}
+
+			.panel-content ul {
+				align-self: flex-end;
+				position: relative;
+				align-items: flex-end;
+			}
+
+			.panel-content ul li {
+				height: 50px;
+				overflow: hidden;
+			}
+			.panel-content ul li:hover {
+				background-color: rgba(0, 0, 0, 0.2);
+			}
+
+			.h5 {
+				display: inline;
+				color: rgb(218, 218, 218);
+				width: 200px;
+				word-break: keep-all;
+				position: relative;
+				left: -230px;
+				transition: 0.4s;
+				transition-delay: 0.3s;
+				opacity: 0;
+			}
+			.h52 {
+				display: inline;
+				color: rgb(218, 218, 218);
+				width: 200px;
+				word-break: keep-all;
+				position: relative;
+				left: -230px;
+				transition: 0.4s;
+				transition-delay: 0.3s;
+				opacity: 0;
+			}
+			.h53 {
+				display: inline;
+				color: rgb(218, 218, 218);
+				width: 200px;
+				word-break: keep-all;
+				position: relative;
+				left: -230px;
+				transition: 0.4s;
+				transition-delay: 0.3s;
+				opacity: 0;
+			}
+			.h54 {
+				display: inline;
+				color: rgb(218, 218, 218);
+				width: 200px;
+				word-break: keep-all;
+				position: relative;
+				left: -230px;
+				transition: 0.4s;
+				transition-delay: 0.3s;
+				opacity: 0;
+			}
+			.h55 {
+				display: inline;
+				color: rgb(218, 218, 218);
+				width: 200px;
+				word-break: keep-all;
+				position: relative;
+				left: -230px;
+				transition: 0.4s;
+				transition-delay: 0.3s;
+				opacity: 0;
+			}
+			.h56 {
+				display: inline;
+				color: rgb(218, 218, 218);
+				width: 200px;
+				word-break: keep-all;
+				position: relative;
+				left: -230px;
+				transition: 0.4s;
+				transition-delay: 0.3s;
+				opacity: 0;
+			}
+			.h57 {
+				display: inline;
+				color: rgb(218, 218, 218);
+				width: 200px;
+				word-break: keep-all;
+				position: relative;
+				left: -230px;
+				transition: 0.4s;
+				transition-delay: 0.3s;
+				opacity: 0;
+			}
+			.h5-open {
+				left: 20px;
+				top: -8px;
+				opacity: 1;
+				display: inline;
+				word-break: keep-all;
+			}
+
+			.list {
+				margin: 0px;
+				padding-top: 5px;
+				transition: 0.3s;
+				width: 50px;
+				height: 20px;
+			}
+			.list2 {
+				margin: 0px;
+				padding-top: 5px;
+				transition: 0.3s;
+				width: 50px;
+			}
+			.list3 {
+				margin: 0px;
+				padding-top: 5px;
+				transition: 0.3s;
+				width: 50px;
+			}
+			.list4 {
+				margin: 0px;
+				padding-top: 5px;
+				transition: 0.3s;
+				width: 50px;
+			}
+			.list5 {
+				margin: 0px;
+				padding-top: 5px;
+				transition: 0.3s;
+				width: 50px;
+			}
+			.list6 {
+				margin: 0px;
+				padding-top: 5px;
+				transition: 0.3s;
+				width: 50px;
+			}
+			.list7 {
+				margin: 0px;
+				padding-top: 10px;
+				transition: 0.3s;
+				width: 50px;
+			}
+
+			.list-expanded {
+				width: 200px;
+			}
+
+			.panel-content .pp {
+				height: 30px;
+				width: 30px;
+				position: relative;
+				left: 8px;
+				top: 3px;
+				border: 1px grey solid;
+				border-radius: 100%;
+				transition: 0.3s;
+				z-index: 2;
+			}
+
+			.icon-button {
+				height: 25px;
+				width: 25px;
+				position: relative;
+				left: 7px;
+				top: 3px;
+				color: white;
+				transition: 0.3s;
+				padding: 5px;
+				z-index: 2;
+			}
+
+			/*-----[content]-----*/
+			#content {
+				grid-area: content;
+				padding: 0.5% 10% 0px 10%;
+			}
+
+			#content p {
+				margin: 0px 0px 5px 0px;
+				text-indent: 3%;
+			}
+
+			#content h1 {
+				font-size: 40px;
+				margin: 20px 0px 10px 0px;
+			}
+
+			#content .image-present {
+				display: block;
+				height: 360px;
+				width: 100%;
+				overflow: hidden;
+				box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.664);
+				align-items: center;
+			}
+			.slider {
+				display: flex;
+				position: relative;
+				height: 100%;
+				width: 300%;
+				z-index: 0;
+				top: -100%;
+				animation: slide-auto 40s infinite;
+			}
+			.child-slide {
+				display: inline;
+				position: relative;
+				width: 100%;
+			}
+			.child-slide img {
+				height: 100%;
+				width: 100%;
+				object-fit: cover;
+				object-position: top;
+				display: block;
+				margin-left: auto;
+				margin-right: auto;
+				image-rendering: pixelated;
+			}
+			.filter {
+				background: linear-gradient(90deg, rgba(95, 140, 160, 0.726), transparent, transparent, rgba(112, 148, 136, 0.712));
+				background-color: rgba(0, 0, 0, 0.3);
+				height: 100%;
+				width: 100%;
+				position: relative;
+				z-index: 20;
+			}
+			.image-caption {
+				position: relative;
+				top: -100%;
+			}
+			.image-caption2 {
+				position: relative;
+				top: -90px;
+				height: 90px;
+				background-color: rgba(0, 0, 0, 0.5);
+				display: block;
+				z-index: 20;
+			}
+			.caption-slider {
+				width: 300%;
+				display: flex;
+				position: relative;
+				animation: slide-auto-faded 40s infinite;
+				animation-delay: 0.3s;
+			}
+			.caption-child {
+				width: 33.3%;
+			}
+			#content .caption {
+				font-size: 30px;
+				color: rgb(231, 231, 231);
+				margin: 10px 0px 10px 20px;
+				transition: 0.3s;
+			}
+			#content .caption:hover {
+				text-decoration: underline;
+				color: rgb(155, 204, 189);
+			}
+			.caption-date {
+				font-size: 18px;
+				color: rgb(155, 155, 155);
+				margin-left: 20px;
+				align-content: flex-end;
+				font-family: 'Courier New', Courier, monospace;
+			}
+
+			/*FOOTER*/
+			#footer {
+				background: linear-gradient(-135deg, rgb(40, 49, 49), rgb(42, 32, 65));
+				grid-area: foot;
+				margin-top: 30px;
+				padding: 20px 5% 20px 5%;
+				border-top: 5px solid transparent;
+				border-image: linear-gradient(90deg, rgb(139, 0, 139), rgb(151, 53, 53));
+				border-image-slice: 1;
+			}
+			
+			.footer-grid {
+				display: inline-block;
+				width: calc(99.4% / 3);
+			}
+
+			.footer-grid p {
+				color: rgb(196, 196, 196);
+				font-weight: bold;
+			}
+			.footer-grid .title {
+				font-family: 'Kaushan Script', cursive;
+				font-weight: bold;
+				font-size: 24px;
+				color: rgb(228, 228, 228);
+				text-align: center;
+			}
+			.footer-grid .quote {
+				font-weight: normal;
+				font-style: oblique;
+				text-align: center;
+			}
+			.footer-grid svg {
+				position: relative;
+				top: 2px;
+				margin: 0px 3px 0px 3px;
+			}
+			.footer-grid .right {
+				text-align: right;
+			}
+
+
+			/*===| GRID RESPONSIVE SETTING |===*/
+			@media only screen and (max-height: 450px) {
+				.list {
+					display: none;
+				}
+			}
+			@media only screen and (max-height: 400px) {
+				.list2 {
+					display: none;
+				}
+			}
+			@media only screen and (max-height: 350px) {
+				.list3 {
+					display: none;
+				}
+			}
+			@media only screen and (max-height: 300px) {
+				.list4 {
+					display: none;
+				}
+			}
+			@media only screen and (max-height: 250px) {
+				.list5 {
+					display: none;
+				}
+			}
+
+			@media only screen and (max-width: 600px) {
+				.grid-panel-extended {
+					grid-template-columns: 50px 1fr;
+				}
+				#content .image-present {
+					height: 200px;
+				}
+			}
+			@media only screen and (max-width: 800px) {
+				.image-caption2 {
+					height: 130px;
+					top: -130px;
+				}
+				#content .caption {
+					height: 80px;
+				}
+			}
+			@media only screen and (max-width: 400px) {
+				.image-caption2 {
+					height: 200px;
+					top: -200px;
+				}
+				#content .caption {
+					height: 150px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="grid">
+			<div id="header">
+				<div class="button" id="button">
+					<span class="one"></span>
+					<span class="two"></span>
+					<span class="three"></span>
+				</div>
+				<h1>Monster_Site</h1>
+			</div>
+			<div class="option">
+				<hr class="spacing">
+				<ul>
+					<a href="/index.html"><li>HOME</li></a>
+					<a href="/about.html"><li>ABOUT</li></a>
+					<a href="/content.html"><li>CONTENT</li></a>
+					<a href="/galery.html"><li>GALERY</li></a>
+				</ul>
+			</div>
+			<div class="panel">
+				<div class="expander">
+					<p class="expand-word">PANEL ACCESS</p>
+					<p class="svg">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="expand-logo" viewBox="0 0 16 16">
+							<path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+							<path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+						</svg>
+					</p>
+				</div>
+				<div class="panel-content">
+					<ul>
+						<a href="/content/sample-code.html"><li class="list">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="icon-button" viewBox="0 0 16 16">
+								<path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z"/>
+							</svg>
+							<h5 class="h5">SAMPLE CODE</h5>
+						</li></a>
+						<a href="https://www.facebook.com/andrew.gerald.75873/"><li class="list2">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="icon-button" viewBox="0 0 16 16">
+								<path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+							</svg>
+							<h5 class="h52">MY FACEBOOK</h5>
+						</li></a>
+						<a href="https://www.instagram.com/yoel_wep/"><li class="list3">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="icon-button" viewBox="0 0 16 16">
+								<path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/>
+							</svg>
+							<h5 class="h53">MY INSTAGRAM</h5>
+						</li></a>
+						<a href="https://id.quora.com/profile/Andrew-Gerald-4"><li class="list4">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="icon-button" viewBox="0 0 16 16">
+								<path d="M8.73 12.476c-.554-1.091-1.204-2.193-2.473-2.193-.242 0-.484.04-.707.142l-.43-.863c.525-.45 1.373-.808 2.464-.808 1.697 0 2.568.818 3.26 1.86.41-.89.605-2.093.605-3.584 0-3.724-1.165-5.636-3.885-5.636-2.68 0-3.839 1.912-3.839 5.636 0 3.704 1.159 5.596 3.84 5.596.425 0 .811-.046 1.166-.15Zm.665 1.3a7.127 7.127 0 0 1-1.83.244C3.994 14.02.5 11.172.5 7.03.5 2.849 3.995 0 7.564 0c3.63 0 7.09 2.828 7.09 7.03 0 2.337-1.09 4.236-2.675 5.464.512.767 1.04 1.277 1.773 1.277.802 0 1.125-.62 1.179-1.105h1.043c.061.647-.262 3.334-3.178 3.334-1.767 0-2.7-1.024-3.4-2.224Z"/>
+							</svg>
+							<h5 class="h54">MY QUORA</h5>
+						</li></a>
+						<a href="/index.html"><li class="list5">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="icon-button" viewBox="0 0 16 16">
+								<path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
+							</svg>
+							<h5 class="h55">HOME</h5>
+						</li></a>
+						<a href="/content.html"><li class="list6">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="icon-button" viewBox="0 0 16 16">
+								<path d="M2.5 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm2-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm1 .5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+								<path d="M2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2zm13 2v2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zM2 14a1 1 0 0 1-1-1V6h14v7a1 1 0 0 1-1 1H2z"/>
+							</svg>
+							<h5 class="h56">CONTENT</h5>
+						</li></a>
+						<a href="/about.html"><li class="list7">
+							<img class="pp" src="/component/image/ppSmall.jpg">
+							<h5 class="h57">YOEL WIYADI EKA .P</h5>
+						</li></a>
+					</ul>
+				</div>
+			</div>
+			<div id="content">
+				<h1>Highlighted Contents</h1>
+				<div class="image-present">
+					<div class="filter"></div>
+					<div class="slider">
+						<div class="child-slide">
+							<img src="/img/slider/cara-melihat-jawaban-yang-dihidden-di-robo-guru-tanpa-login.jpg">
+						</div>
+						<div class="child-slide">
+							<img src="/img/slider/cara-alternatif-untuk-menghindari-!important-css.jpg">
+						</div>
+						<div class="child-slide">
+							<img src="/img/slider/tutorial-mempermudah-hidup-dengan-batch.jpg">
+						</div>
+					</div>
+					<div class="image-caption">
+						<div class="image-caption2">
+							<div class="caption-slider">
+								<div class="caption-child">
+									<a href=""><h1 class="caption">CARA MELIHAT JAWABAN YANG DIHIDDEN DI ROBO GURU TANPA LOGIN</h1></a>
+									<h2 class="caption-date">CONTENT #1 ~ 14 MARCH 2022</h2>
+								</div>
+								<div class="caption-child">
+									<a href=""><h1 class="caption">CARA ALTERNATIF UNTUK MENGHINDAR DARI !IMPORTANT CSS</h1></a>
+									<h2 class="caption-date">CONTENT #2 ~ ???</h2>
+								</div>
+								<div class="caption-child">
+									<a href=""><h1 class="caption">TUTORIAL MEMPERMUDAH HIDUP DENGAN BATCH</h1></a>
+									<h2 class="caption-date">CONTENT #3 ~ ???</h2>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<h1>What Is This</h1>
+				<p>Lorem ipsum is a dummy text for testing a typography, such as designing, or other. For examples you can look here : Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita assumenda illum sed excepturi magnam quas at consequuntur, error deleniti nemo. Amet tempore debitis unde corporis delectus, ut recusandae dolorem neque?</p>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero labore possimus recusandae, aliquam suscipit quasi cumque quam quod, veritatis obcaecati, tenetur laboriosam quos. Labore atque inventore minus laborum ex sapiente.</p>
+				<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero tempora enim, incidunt, nostrum ut minus culpa ullam exercitationem distinctio, vel laboriosam aliquid mollitia eveniet. Dolore neque veritatis officiis facere nisi.</p>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi accusantium assumenda ullam provident ipsum consequuntur et nam vitae unde officia, quam rem totam fuga ab recusandae, vel ex autem necessitatibus?</p>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis dolores voluptatibus beatae dignissimos provident inventore vel praesentium quo in rem, veritatis deleniti quam! Ea minus aut labore iusto asperiores perferendis?</p>
+				<h1>Description Of This Website</h1>
+				<p>Monster Site is a website (not a webapp, webapp is different from website) for alternative from blog. Blogger has not popular in 2022 and still using HTTP. This website is prioritated to a content publishing. Like a blogger, we hope this is can be an alternative way to make people getting an information from writers. Recomended writers is a geek, coder, or other contens about computer.</p>
+				<p>All writer isn't must for publish all knowledges about computer, you can share your known about other, but must following a situation. For example you can share tips, life hack, trick, and more! This website has made by myself with self learning. I using a simple layout with CSS grid because it's easy to use. If you want to be a writer you can send a .docx or .txt file to my e-mail in <i>scottonthespot81@gmail.com</i>.</p>
+				<p>All articels here is available for Indonesian only because my English is broken. </p>
+			</div>
+			<div id="footer">
+				<div class="footer-grid">
+					<p>MADE WITH 
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+							<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+						</svg> BY YOEL .W.E.P</p>
+				</div>
+				<div class="footer-grid">
+					<p class="title">Monster_Site</p>
+					<p class="quote">"coding fells like fighting with monster, but it's just code"</p>
+				</div>
+				<div class="footer-grid">
+					<p class="right">BUILDED ON 13ᵗʰ MARCH 2022</p>
+				</div>
+			</div>
+		</div>
+
+		<!-- JAVASCRIPT -->
+		<script type="text/javascript">
+			// HEADER
+			var prevScrollpos = window.pageYOffset;
+				window.onscroll = function() {
+			 	var currentScrollPos = window.pageYOffset;
+
+			 	if (prevScrollpos > currentScrollPos) {
+					document.getElementById("header").style.top = "0";
+				} else {
+					document.getElementById("header").style.top = "-50px";
+				}
+				prevScrollpos = currentScrollPos;
+			}
+
+			// MENU
+			const trigger = document.querySelector("#button");
+			const logo1 = document.querySelector(".one");
+			const logo2 = document.querySelector(".two");
+			const logo3 = document.querySelector(".three");
+			const menu = document.querySelector(".option");
+
+			trigger.addEventListener("click", () => {
+				logo1.classList.toggle('one-active');
+				logo2.classList.toggle('two-active');
+				logo3.classList.toggle('three-active');
+				menu.classList.toggle("option-active")
+			})
+
+			// PANEL
+			const button = document.querySelector(".expander");
+			const grid = document.querySelector(".grid");
+			const panel = document.querySelector(".panel");
+			const expand = document.querySelector(".expand-word");
+			const logo = document.querySelector(".expand-logo");
+			const svg = document.querySelector(".svg");
+			const list = document.querySelector(".list");
+			const list2 = document.querySelector(".list2");
+			const list3 = document.querySelector(".list3");
+			const list4 = document.querySelector(".list4");
+			const list5 = document.querySelector(".list5");
+			const list6 = document.querySelector(".list6");
+			const list7 = document.querySelector(".list7");
+			const text = document.querySelector(".h5");
+			const text2 = document.querySelector(".h52");
+			const text3 = document.querySelector(".h53");
+			const text4 = document.querySelector(".h54");
+			const text5 = document.querySelector(".h55");
+			const text6 = document.querySelector(".h56");
+			const text7 = document.querySelector(".h57");
+
+			button.addEventListener("click", () => {
+				button.classList.toggle('expander-active')
+				grid.classList.toggle('grid-panel-extended');
+				panel.classList.toggle('panel-expanded');
+				expand.classList.toggle('expand-word-expanded');
+				logo.classList.toggle('expand-logo-pressed');
+				svg.classList.toggle('svg-pressed');
+				list.classList.toggle('list-expanded');
+				list2.classList.toggle('list-expanded');
+				list3.classList.toggle('list-expanded');
+				list4.classList.toggle('list-expanded');
+				list5.classList.toggle('list-expanded');
+				list6.classList.toggle('list-expanded');
+				list7.classList.toggle('list-expanded');
+				text.classList.toggle('h5-open');
+				text2.classList.toggle('h5-open');
+				text3.classList.toggle('h5-open');
+				text4.classList.toggle('h5-open');
+				text5.classList.toggle('h5-open');
+				text6.classList.toggle('h5-open');
+				text7.classList.toggle('h5-open');
+			})
+		</script>
+	</body>
+</html>
